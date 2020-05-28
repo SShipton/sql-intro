@@ -45,7 +45,13 @@ ALTER TABLE "Employees" ADD COLUMN "Id" SERIAL PRIMARY KEY;
   "Salary" INT NOT NULL,
   "JobPosition" TEXT,
   "PhoneExtension" INT,
-  "IsPartTime" BOOL,
+  "IsPartTime" BOOL
+  );
+
+  CREATE TABLE "Departments" (
+  "Id" SERIAL PRIMARY KEY,
+  "DepartmentName" TEXT,
+  "Building" TEXT
   );
 
   ALTER TABLE "Employees" ADD COLUMN "DepartmentId" SERIAL PRIMARY KEY;
@@ -75,15 +81,23 @@ ALTER TABLE "Employees" ADD COLUMN "Id" SERIAL PRIMARY KEY;
   INSERT INTO "Departments" ("DepartmentName", "Building")
   VALUES ('Marketing', 'North');
 
-  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "Id")
+  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "DepartmentId")
   VALUES ('Tim Smith', 40000, 'Programmer', false, '1');
 
-  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "Id")
+  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "DepartmentId")
   VALUES ('Barbara Ramsey', 80000, 'Manager', false, '1');
-  //This was the only part I got stuck on. How do I assign another employee with the same ID? I tried...)
-  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "Id", "DepartmentName")
+
+  // This was the only part I got stuck on. How do I assign another employee with the same ID? I tried...
+
+  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "DepartmentId") WHERE "DepartmentName"='Marketing'
+  VALUES ('Barbara Ramsey', 80000, 'Manager', false, '1',);
+
+  // But I "had an error near my 'WHERE'
+
+  INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "DepartmentId", "DepartmentName")
   VALUES ('Barbara Ramsey', 80000, 'Manager', false, '1', 'Marketing');
-  //But it had no relation
+
+  // But it has no relation
 
   INSERT INTO "Employees" ("Fullname", "Salary", "JobPosition", "IsPartTime", "Id")
   VALUES ('Tom Jones', 32000, 'Admin', true, '2');
@@ -98,18 +112,18 @@ ALTER TABLE "Employees" ADD COLUMN "Id" SERIAL PRIMARY KEY;
   VALUES ('X529', '2020-01-01 16:55:00', 'person@example.com');
 
   UPDATE "ProductOrders" ("OrderNumber", "OrderQuantity", "Name")
-  VALUES ('X529', '3', "Widget");
-  //Struggling to figure out how to update multiple things in their respective tables. Would I do...
+  VALUES ('X529', 3, "Widget");
+  // Struggling to figure out how to update multiple things in their respective tables. Would I do...
   UPDATE "ProductOrders" ("OrderQuantity")
   VALUES (3);
-  //Or would that just update the whole table, not for my specific order?
+  // Or would that just update the whole table, not for my specific order?
 
   SELECT "DepartmentId" FROM "Employees" WHERE "DepartmentId"=1;
   //Replace "1" with whatever Id youre searching for.
 
-  //I cant figure out if I do
+  // I cant figure out if I do
   SELECT "PhoneExtension" FROM "Departments" WHERE "DepartmentName"='Development';
-  //or
+  // or
   SELECT "PhoneExtension" FROM "Employees" WHERE "DepartmentName"='Development';
 
   Select "Orders" WHERE "Id"=2;
