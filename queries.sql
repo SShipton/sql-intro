@@ -129,3 +129,50 @@ ALTER TABLE "Employees" ADD COLUMN "Id" SERIAL PRIMARY KEY;
   Select "Orders" WHERE "Id"=2;
 
   DELETE FROM "Orders" WHERE "Name"='Widget' //and?// "OrderNumber"='X529';
+
+  ------------------------------------------------------------------------------------------
+
+  CREATE TABLE "Album" (
+  "Title" TEXT,
+  "IsExplicit" BOOL,
+  "ReleaseDate" TEXT, //or TIMESTAMP?
+  "Id" SERIAL PRIMARY KEY
+  );
+
+  CREATE TABLE "Band" (
+  "Name" TEXT,
+  "CountryOfOrigin" TEXT,
+  "NumberOfMembers" INT,
+  "Website" TEXT,
+  "Style" TEXT,
+  "IsSigned" BOOL,
+  "ContactName" TEXT,
+  "ContactPhoneNumber" INT,
+  "Id" SERIAL PRIMARY KEY
+  );
+
+  ALTER TABLE "Album" ADD COLUMN "BandId" INTEGER NULL REFERENCES "Band" ("Id");
+
+  SELECT *
+  FROM "Album"
+  JOIN "Band" ON "Album"."BandId" = "Band"."Id";
+
+  INSERT INTO "Band" ("Name", "CountryOfOrigin", "NumberOfMembers", "Website", "Style", "IsSigned", "ContactName", "ContactPhoneNumber")
+  VALUES ('Queen', 'United Kingdom', 6, QueenBand.com', 'Rock', true, 'Freddie Mercury', 727-555-9210);
+
+  SELECT * FROM "Band";
+
+  INSERT INTO "Album" ("Title", "IsExplicit", "ReleaseDate")
+  VALUES ('Jazz', true, 10:5:1978);
+
+  UPDATE "Band" SET "IsSigned" = false;
+
+  UPDATE "Band" SET "IsSigned" = true;
+
+  SELECT "Queen" FROM "Band";
+
+  SELECT "Album" FROM "Band" ORDER BY DateTime;
+
+  SELECT * FROM "Band" WHERE "IsSigned" = true;
+
+  SELECT * FROM "Band" WHERE "IsSigned" = false;
